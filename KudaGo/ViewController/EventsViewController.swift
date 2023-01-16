@@ -9,6 +9,8 @@ import UIKit
 
 final class EventsViewController: UIViewController {
     
+    private var events = [EventDetail]()
+    
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -28,10 +30,21 @@ final class EventsViewController: UIViewController {
         return collectionView
     }()
     
+    private func fetchEvents() {
+        NetworkLayer.shared.fetchEventList { [weak self] eventList in
+            guard let self = self else { return }
+            NetworkLayer.shared.fetchEventDetails(events: eventList) { eventDetails in
+                self.events = eventDetails
+                self.collectionView.reloadData()
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         view.addSubview(collectionView)
+        fetchEvents()
         setConstraints()
     }
     
@@ -46,11 +59,13 @@ final class EventsViewController: UIViewController {
 
 extension EventsViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return events.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellIdentifier, for: indexPath) as! EventCell
+        let event = events[indexPath.item]
+        cell.configure(event: event)
         return cell
     }
 }

@@ -13,6 +13,8 @@
 		602D69EE297378CD00581393 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 602D69ED297378CD00581393 /* Assets.xcassets */; };
 		602D69F1297378CD00581393 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 602D69EF297378CD00581393 /* LaunchScreen.storyboard */; };
 		60C930F12975667D004DD5F7 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C930F02975667D004DD5F7 /* EventCell.swift */; };
+		60C930F329757542004DD5F7 /* NetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C930F229757542004DD5F7 /* NetworkLayer.swift */; };
+		60C930F52975757B004DD5F7 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C930F42975757B004DD5F7 /* Event.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		602D69F0297378CD00581393 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		602D69F2297378CD00581393 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		60C930F02975667D004DD5F7 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
+		60C930F229757542004DD5F7 /* NetworkLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLayer.swift; sourceTree = "<group>"; };
+		60C930F42975757B004DD5F7 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +60,65 @@
 		602D69E3297378CB00581393 /* KudaGo */ = {
 			isa = PBXGroup;
 			children = (
+				60C930F62975C392004DD5F7 /* Application */,
+				60C930F82975C3B7004DD5F7 /* Cell */,
+				60C930F92975C3C8004DD5F7 /* Model */,
+				60C930FA2975C3E9004DD5F7 /* Network */,
+				60C930F72975C3A2004DD5F7 /* ViewController */,
+				60C930FB2975C40E004DD5F7 /* Resource */,
+			);
+			path = KudaGo;
+			sourceTree = "<group>";
+		};
+		60C930F62975C392004DD5F7 /* Application */ = {
+			isa = PBXGroup;
+			children = (
 				602D69E4297378CB00581393 /* AppDelegate.swift */,
 				602D69E6297378CB00581393 /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		60C930F72975C3A2004DD5F7 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
 				602D69E8297378CB00581393 /* EventsViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		60C930F82975C3B7004DD5F7 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
 				60C930F02975667D004DD5F7 /* EventCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		60C930F92975C3C8004DD5F7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				60C930F42975757B004DD5F7 /* Event.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		60C930FA2975C3E9004DD5F7 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				60C930F229757542004DD5F7 /* NetworkLayer.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		60C930FB2975C40E004DD5F7 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
 				602D69ED297378CD00581393 /* Assets.xcassets */,
 				602D69EF297378CD00581393 /* LaunchScreen.storyboard */,
 				602D69F2297378CD00581393 /* Info.plist */,
 			);
-			path = KudaGo;
+			path = Resource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,6 +194,8 @@
 				602D69E9297378CB00581393 /* EventsViewController.swift in Sources */,
 				60C930F12975667D004DD5F7 /* EventCell.swift in Sources */,
 				602D69E5297378CB00581393 /* AppDelegate.swift in Sources */,
+				60C930F329757542004DD5F7 /* NetworkLayer.swift in Sources */,
+				60C930F52975757B004DD5F7 /* Event.swift in Sources */,
 				602D69E7297378CB00581393 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -281,7 +337,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = TVNB4R4JHD;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = KudaGo/Info.plist;
+				INFOPLIST_FILE = KudaGo/Resource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -312,7 +368,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = TVNB4R4JHD;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = KudaGo/Info.plist;
+				INFOPLIST_FILE = KudaGo/Resource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
