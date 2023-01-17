@@ -8,11 +8,12 @@
 import Foundation
 
 struct Event: Decodable {
-    let results: [Result]
+    let next: String?
+    let results: [Result]?
 }
 
 struct Result: Decodable {
-    let id: Int
+    let id: Int?
 }
 
 struct EventDetail: Decodable {
@@ -21,7 +22,6 @@ struct EventDetail: Decodable {
     let title: String?
     let description: String?
     let images: [EventDetailImage]?
-
 }
 
 struct DateElement: Decodable {
@@ -31,10 +31,5 @@ struct DateElement: Decodable {
 
 struct EventDetailImage: Decodable {
     let image: String?
-    let source: Source?
 }
 
-struct Source: Decodable {
-    let name: String?
-    let link: String?
-}
