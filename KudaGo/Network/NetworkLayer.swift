@@ -8,8 +8,9 @@
 import Foundation
 
 final class NetworkLayer {
-    
     static let shared = NetworkLayer()
+    let group = DispatchGroup()
+    var eventDetails = [EventDetail]()
     
     private func getCurrentDateYYYYMMDD() -> String {
         let todaysDate = NSDate()
@@ -46,49 +47,37 @@ final class NetworkLayer {
     }
     
     func fetchEventDetail(id: Int, completion: @escaping (EventDetail?) -> Void) {
-        let url = URL(string: "\(Constants.baseURL)/events/\(id)/")!
-        print(url)
-        let request = URLRequest(url: url)
-        
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-             if let error = error {
-                 print("Error fetching event detail: \(error)")
-                 completion(nil)
-                 return
-             }
-             
-             guard let data = data else {
-                 print("No data received")
-                 completion(nil)
-                 return
-             }
-             
-             let decoder = JSONDecoder()
-             
-             do {
-                 let eventDetail = try decoder.decode(EventDetail.self, from: data)
-                 completion(eventDetail)
-             } catch {
-                 print("Error decoding JSON: \(error)")
-                 completion(nil)
-             }
-         }
-         task.resume()
-     }
+        group.enter()
+        let url = URL(string: "\(Constants.baseURL)/events/\(id)")!
+        var request = URLRequest(url: url, timeoutInterval: Double.infinity)
+        let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+            guard let self = self else { return }
+            guard let data = data else {
+                print(String(describing: error))
+                self.group.leave()
+                return
+            }
+            let eventDetail = try? JSONDecoder().decode(EventDetail.self, from: data)
+            if let eventDetail = eventDetail {
+                self.eventDetails.append(eventDetail)
+            }
+            completion(eventDetail)
+            self.group.leave()
+        }
+        task.resume()
+    }
+
     
     func fetchEventDetails(events: [Result], completion: @escaping ([EventDetail]) -> Void) {
-        var eventDetails = [EventDetail]()
-        let group = DispatchGroup()
+        eventDetails = []
         for event in events {
-            group.enter()
             fetchEventDetail(id: event.id) { eventDetail in
                 guard eventDetail != nil else { return }
-                eventDetails.append(eventDetail!)
-                group.leave()
+                self.eventDetails.append(eventDetail!)
             }
         }
         group.notify(queue: .main) {
-            completion(eventDetails)
+            completion(self.eventDetails)
         }
     }
 }

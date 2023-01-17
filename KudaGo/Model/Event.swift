@@ -16,25 +16,25 @@ struct Result: Decodable {
 }
 
 struct EventDetail: Decodable {
-    let id: Int
-    let dates: [DateElement]
-    let title: String
-    let description: String
-    let images: [EventDetailImage]
+    let id: Int?
+    let dates: [DateElement]?
+    let title: String?
+    let description: String?
+    let images: [EventDetailImage]?
 
 }
 
 struct DateElement: Decodable {
-    let start: Int
-    let end: Int
+    let start: Int?
+    let end: Int?
 }
 
 struct EventDetailImage: Decodable {
-    let image: String
-    let source: Source
+    let image: String?
+    let source: Source?
 }
 
 struct Source: Decodable {
-    let name: String
-    let link: String
+    let name: String?
+    let link: String?
 }

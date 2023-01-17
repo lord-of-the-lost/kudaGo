@@ -34,6 +34,7 @@ final class EventsViewController: UIViewController {
         NetworkLayer.shared.fetchEventList { [weak self] eventList in
             guard let self = self else { return }
             NetworkLayer.shared.fetchEventDetails(events: eventList) { eventDetails in
+                print(eventDetails)
                 self.events = eventDetails
                 self.collectionView.reloadData()
             }
@@ -44,22 +45,23 @@ final class EventsViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         view.addSubview(collectionView)
-        fetchEvents()
         setConstraints()
+        fetchEvents()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            let itemWidth = (collectionView.frame.width - layout.sectionInset.left - layout.sectionInset.right - layout.minimumInteritemSpacing) / 2
-            layout.itemSize = CGSize(width: itemWidth, height: itemWidth)
+        let itemWidth = collectionView.frame.width - layout.sectionInset.left - layout.sectionInset.right
+        let itemHeight = itemWidth / 2
+        layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
         }
     }
 }
 
 extension EventsViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return events.count
+        events.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -67,8 +69,7 @@ extension EventsViewController: UICollectionViewDelegate, UICollectionViewDataSo
         let event = events[indexPath.item]
         cell.configure(event: event)
         return cell
-    }
-}
+    }}
 
 private extension EventsViewController{
     func setConstraints(){
@@ -85,4 +86,3 @@ private extension EventsViewController{
         static let cellIdentifier: String = "eventCell"
     }
 }
-
